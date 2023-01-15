@@ -9,5 +9,5 @@ services:
     - 50000:50000
    container_name: jenkins-model-template-container
    volumes:
-    - $HOME/jenkins-volumes/jenkins-model-template:/var/jenkins_home
+    - $HOME/jenkins-volume:/var/jenkins_home
     - /var/run/docker.sock:/var/run/docker.sock
