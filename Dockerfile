@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:2.375.1-jdk11
+FROM jenkins/jenkins:lts
 # TODO use alpine ligth image for Jenkins or use image more light
 
 USER root
@@ -14,5 +14,14 @@ RUN echo "deb [arch=$(dpkg --print-architecture) \
   $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
 
 RUN apt-get update && apt-get install -y docker-ce-cli
+
+RUN apt-get update && \
+    apt-get install -y curl unzip && \
+    curl https://releases.hashicorp.com/terraform/1.3.7/terraform_1.3.7_linux_amd64.zip -o terraform.zip && \
+    unzip terraform.zip && \
+    mv terraform /usr/local/bin/ && \
+    rm terraform.zip
+
+RUN chmod +x /usr/local/bin/terraform
 
 USER jenkins
